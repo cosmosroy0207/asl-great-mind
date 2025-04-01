@@ -1,0 +1,17 @@
+# Docker
+/docker-data/
+
+# Go (backend)
+/backend/*/bin/
+/backend/*/vendor/
+
+# Node.js (frontend)
+/frontend/asl-great-mind-web-app/node_modules/
+/frontend/asl-great-mind-web-app/.next/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Environment files
+.env

@@ -1,0 +1,7 @@
+
+
+// auth
+curl http://localhost:8081/ping
+
+// core
+curl http://localhost:8080/ping

@@ -1,0 +1,49 @@
+version: '3.8'
+services:
+  auth:
+    container_name: asl_great_mind_auth
+    build:
+      context: ../backend
+      dockerfile: auth/Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mariadb
+    environment:
+      - DB_HOST=mariadb
+      - DB_PORT=3306
+  core:
+    container_name: asl_great_mind_core
+    build:
+      context: ../backend
+      dockerfile: core/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mariadb
+    environment:
+      - DB_HOST=mariadb
+      - DB_PORT=3306
+  web-app:
+    build: ../frontend/asl-great-mind-web-app
+    container_name: asl_great_mind_web_app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - auth
+      - core
+  mariadb:
+    image: mariadb:latest
+    container_name: asl_great_mind_mariadb  
+    environment:
+      - MYSQL_ROOT_PASSWORD=asl1234
+      - MYSQL_DATABASE=greatmind01
+    ports:
+      - "23306:3306"
+    volumes:
+      - /home/roychan/docker-data/mysql:/var/lib/mysql
+    healthcheck:
+        test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pasl1234"]
+        interval: 10s
+        timeout: 5s
+        retries: 5
