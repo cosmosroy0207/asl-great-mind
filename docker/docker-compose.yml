@@ -41,7 +41,7 @@ services:
     ports:
       - "23306:3306"
     volumes:
-      - /home/roychan/docker-data/mysql:/var/lib/mysql
+      - ${HOME}/docker-data/mysql:/var/lib/mysql
     healthcheck:
         test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pasl1234"]
         interval: 10s
